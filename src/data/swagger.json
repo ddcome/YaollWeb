@@ -1,0 +1,382 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "YaollWeb API",
+    "description": "YaollWeb项目的API接口文档",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "本地开发服务器"
+    }
+  ],
+  "paths": {
+    "/articles": {
+      "get": {
+        "summary": "获取文章列表",
+        "description": "获取所有文章的列表，支持分页",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 6
+            },
+            "description": "每页数量"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["rich-text", "markdown", "video"]
+            },
+            "description": "文章类型"
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "标签筛选"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取文章列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Article"
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "example": 50
+                    },
+                    "hasMore": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{id}": {
+      "get": {
+        "summary": "获取文章详情",
+        "description": "根据ID获取文章的详细信息",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "文章ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取文章详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/ArticleDetail"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "文章不存在"
+          }
+        }
+      }
+    },
+    "/videos/{id}": {
+      "get": {
+        "summary": "获取视频详情",
+        "description": "根据ID获取视频的详细信息",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "视频ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取视频详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/VideoDetail"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "视频不存在"
+          }
+        }
+      }
+    },
+    "/tags": {
+      "get": {
+        "summary": "获取标签列表",
+        "description": "获取所有标签",
+        "responses": {
+          "200": {
+            "description": "成功获取标签列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Tag"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "获取用户信息",
+        "description": "根据ID获取用户信息",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "用户ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功获取用户信息",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "用户不存在"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "XXX"
+          },
+          "avatar": {
+            "type": "string",
+            "example": "https://assets.mockplus.cn/ai/newImages/pexels/9877.jpg"
+          }
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "前端开发"
+          }
+        }
+      },
+      "Article": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "深入理解现代前端框架的演进与未来趋势"
+          },
+          "description": {
+            "type": "string",
+            "example": "探索2023年前端开发的最新趋势和技术栈选择，帮助开发者把握行业方向..."
+          },
+          "coverImage": {
+            "type": "string",
+            "example": "https://assets.mockplus.cn/ai/newImages/pexels/xcxcode.png"
+          },
+          "author": {
+            "$ref": "#/components/schemas/User"
+          },
+          "publishDate": {
+            "type": "string",
+            "example": "2026-03-15"
+          },
+          "readCount": {
+            "type": "string",
+            "example": "2.4k"
+          },
+          "type": {
+            "type": "string",
+            "example": "rich-text"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["前端开发", "框架对比", "技术趋势"]
+          },
+          "duration": {
+            "type": "string",
+            "example": "45:20",
+            "nullable": true
+          }
+        }
+      },
+      "ArticleDetail": {
+        "allOf": [
+          { "$ref": "#/components/schemas/Article" },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string",
+                "example": "<h2 id=\"intro\">1. 引言</h2><p>在过去的十年中，前端开发经历了翻天覆地的变化...</p>"
+              },
+              "toc": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "intro"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "1. 引言"
+                    },
+                    "level": {
+                      "type": "integer",
+                      "example": 2
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "VideoDetail": {
+        "allOf": [
+          { "$ref": "#/components/schemas/Article" },
+          {
+            "type": "object",
+            "properties": {
+              "videoUrl": {
+                "type": "string",
+                "example": "https://www.bilibili.com/video/BV1xx411c7mu"
+              },
+              "duration": {
+                "type": "string",
+                "example": "45:20"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
