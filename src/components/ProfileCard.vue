@@ -7,10 +7,10 @@
 
     <div class="profile-content">
       <div class="profile-header">
-        <img src="https://assets.mockplus.cn/ai/newImages/pexels/2632.jpg" alt="头像" class="avatar" />
+        <img src="../assets/images/author.webp" alt="头像" class="avatar" />
       </div>
-      <h2 class="profile-name">XXX</h2>
-      <p class="profile-title">全栈开发工程师 | 技术博主</p>
+      <h2 class="profile-name">曜</h2>
+      <p class="profile-title">全栈AI开发工程师 | 技术博主</p>
 
       <!-- 打字机动画 -->
       <p class="profile-bio typing-wrapper">
@@ -188,7 +188,8 @@ onUnmounted(() => {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--primary-blue-light);
+  border: 4px solid var(--primary-blue);
+  box-shadow: 0 0 0 4px var(--primary-blue-light), 0 8px 24px rgba(74, 123, 247, 0.25);
 }
 
 .profile-name {

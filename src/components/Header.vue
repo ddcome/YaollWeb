@@ -14,11 +14,6 @@
           <router-link to="/about" :class="{ active: $route.path === '/about' }">关于我</router-link>
         </nav>
 
-        <div class="search-box" v-if="showSearch">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" placeholder="搜索..." />
-        </div>
-
         <button class="user-avatar-btn" v-if="showUserAvatar">
           <img src="https://assets.mockplus.cn/ai/newImages/pexels/9877.jpg" alt="用户头像" />
         </button>
@@ -76,9 +71,8 @@ defineProps({
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   height: 100%;
-  gap: 40px;
+  gap: 48px;
 }
 
 .logo {
@@ -116,17 +110,16 @@ defineProps({
 
 .nav-menu {
   display: flex;
-  gap: 32px;
-  flex: 1;
+  gap: 8px;
 }
 
 .nav-menu a {
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  transition: opacity 0.2s;
-  padding: 4px 0;
-  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  padding: 8px 16px;
+  border-radius: 8px;
 }
 
 .blue-theme .nav-menu a {
@@ -136,7 +129,7 @@ defineProps({
 .blue-theme .nav-menu a:hover,
 .blue-theme .nav-menu a.active {
   color: white;
-  border-bottom-color: white;
+  background: rgba(255,255,255,0.15);
 }
 
 .white-theme .nav-menu a {
@@ -146,64 +139,7 @@ defineProps({
 .white-theme .nav-menu a:hover,
 .white-theme .nav-menu a.active {
   color: var(--primary-blue);
-  border-bottom-color: var(--primary-blue);
-}
-
-.search-box {
-  position: relative;
-  width: 280px;
-}
-
-.search-box input {
-  width: 100%;
-  height: 36px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  transition: all 0.2s;
-}
-
-.blue-theme .search-box input {
-  background: rgba(255,255,255,0.15);
-  color: white;
-  padding: 0 16px 0 38px;
-}
-
-.blue-theme .search-box input::placeholder {
-  color: rgba(255,255,255,0.6);
-}
-
-.blue-theme .search-box input:focus {
-  background: rgba(255,255,255,0.25);
-}
-
-.white-theme .search-box input {
-  background: var(--bg-gray);
-  color: var(--text-primary);
-  padding: 0 16px 0 38px;
-  border: 1px solid transparent;
-}
-
-.white-theme .search-box input:focus {
-  background: white;
-  border-color: var(--primary-blue);
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
-}
-
-.blue-theme .search-icon {
-  color: rgba(255,255,255,0.6);
-}
-
-.white-theme .search-icon {
-  color: var(--text-light);
+  background: var(--primary-blue-light);
 }
 
 .user-avatar-btn {
