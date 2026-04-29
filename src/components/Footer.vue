@@ -19,7 +19,7 @@
           <div class="center-section">
             <p class="icp-number">
               <i class="fas fa-shield-alt"></i>
-              京ICP备2026XXXXXX号-1
+              鄂ICP备2023012050号
             </p>
           </div>
 
